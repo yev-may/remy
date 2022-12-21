@@ -1,7 +1,6 @@
 package com.yevay.remy.view.api.controller;
 
 import com.yevay.remy.core.facade.UserFacade;
-import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.UserDto;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody UserDto userDto) {
+    public UserDto registerUser(@RequestBody UserDto userDto) {
         return userFacade.create(userDto);
     }
 }

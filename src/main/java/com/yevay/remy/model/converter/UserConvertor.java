@@ -13,4 +13,11 @@ public class UserConvertor {
                 .password(userDto.getPassword())
                 .build();
     }
+
+    public UserDto toDto(User user) {
+        return UserDto.builder()
+                .login(user.getLogin())
+                .password(user.getPassword())
+                .build();
+    }
 }

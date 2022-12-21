@@ -19,8 +19,9 @@ public class DefaultUserFacade implements UserFacade {
     }
 
     @Override
-    public User create(UserDto userDto) {
+    public UserDto create(UserDto userDto) {
         User user = userConvertor.fromDto(userDto);
-        return userService.save(user);
+        User createdUser = userService.save(user);
+        return userConvertor.toDto(createdUser);
     }
 }
