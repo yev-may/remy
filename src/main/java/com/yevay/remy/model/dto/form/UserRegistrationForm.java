@@ -18,7 +18,7 @@ public class UserRegistrationForm {
     private String email;
     @Size(min=4, max=10, message="Length must be between 4 and 10 characters")
     private String login;
-    @Min(value=8, message = "Must contain at least 8 characters")
+    @Size(min=8, message = "Must contain at least 8 characters")
     private String password;
     private String repeatPassword;
 }
