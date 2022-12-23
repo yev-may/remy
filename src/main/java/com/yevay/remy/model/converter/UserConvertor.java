@@ -10,6 +10,7 @@ public class UserConvertor {
 
     public User fromForm(UserRegistrationForm form) {
         return User.builder()
+                .email(form.getEmail())
                 .login(form.getLogin())
                 .password(form.getPassword())
                 .build();
@@ -17,8 +18,8 @@ public class UserConvertor {
 
     public UserDto toDto(User user) {
         return UserDto.builder()
+                .email(user.getEmail())
                 .login(user.getLogin())
-                .password(user.getPassword())
                 .build();
     }
 }
