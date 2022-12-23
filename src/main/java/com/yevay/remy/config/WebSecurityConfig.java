@@ -17,6 +17,7 @@ public class WebSecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/user/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
