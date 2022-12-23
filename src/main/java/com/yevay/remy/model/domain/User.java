@@ -15,6 +15,7 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+    private String email;
     private String login;
     private String password;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
