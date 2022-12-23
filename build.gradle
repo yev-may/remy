@@ -19,6 +19,9 @@ dependencies {
 	// Web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	// Web security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	// Data
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'com.mysql:mysql-connector-j'
