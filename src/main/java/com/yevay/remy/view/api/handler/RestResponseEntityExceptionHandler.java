@@ -1,5 +1,9 @@
 package com.yevay.remy.view.api.handler;
 
+import com.yevay.remy.model.dto.error.CombinedErrorMassage;
+import com.yevay.remy.model.dto.error.ErrorMessages;
+import com.yevay.remy.model.dto.error.FieldErrorMessage;
+import com.yevay.remy.model.dto.error.FieldErrorMessages;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +15,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,40 +22,39 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final String FIELD_OBJECT_ERRORS = "objectErrors";
-    private static final String FIELD_FIELD_ERRORS = "fieldErrors";
-    private static final String FIELD_FIELD = "field";
-    private static final String FIELD_MESSAGE = "message";
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<ObjectError> errors = exception.getBindingResult().getAllErrors();
-        Map<String, Object> body = Map.of(
-                FIELD_OBJECT_ERRORS, handleObjectErrors(errors),
-                FIELD_FIELD_ERRORS, handleFieldErrors(errors));
+        CombinedErrorMassage body = CombinedErrorMassage.builder()
+                .errorMessages(extractErrorMessages(errors))
+                .fieldErrorMessages(extractFieldErrorMessages(errors)).build();
         return super.handleExceptionInternal(exception, body, headers, status, request);
     }
 
-    private Set<String> handleObjectErrors(List<ObjectError> errors) {
-        return errors.stream()
+    private ErrorMessages extractErrorMessages(List<ObjectError> errors) {
+        Set<String> messages = errors.stream()
                 .filter(error -> !(error instanceof FieldError))
                 .map(this::extractErrorMessage)
                 .collect(Collectors.toSet());
+        return ErrorMessages.builder()
+                .messages(messages).build();
     }
 
-    private Set<Map<String, String>> handleFieldErrors(List<ObjectError> errors) {
-        return errors.stream()
+    private FieldErrorMessages extractFieldErrorMessages(List<ObjectError> errors) {
+        Set<FieldErrorMessage> messages = errors.stream()
                 .filter(FieldError.class::isInstance)
                 .map(FieldError.class::cast)
-                .map(this::toErrorMap)
+                .map(this::extractFieldErrorMessages)
                 .collect(Collectors.toSet());
+        return FieldErrorMessages.builder()
+                .fieldErrors(messages).build();
     }
 
-    private Map<String, String> toErrorMap(FieldError error) {
-        return Map.of(
-                FIELD_FIELD, error.getField(),
-                FIELD_MESSAGE, extractErrorMessage(error));
+    private FieldErrorMessage extractFieldErrorMessages(FieldError error) {
+        return FieldErrorMessage.builder()
+                .field(error.getField())
+                .message(error.getDefaultMessage()).build();
     }
 
     private String extractErrorMessage(ObjectError objectError) {
