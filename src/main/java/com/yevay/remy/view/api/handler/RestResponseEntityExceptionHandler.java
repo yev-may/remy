@@ -1,4 +1,4 @@
-package com.yevay.remy.view.api.controller;
+package com.yevay.remy.view.api.handler;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
