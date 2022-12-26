@@ -27,8 +27,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<ObjectError> errors = exception.getBindingResult().getAllErrors();
         CombinedErrorMassage body = CombinedErrorMassage.builder()
-                .errorMessages(extractErrorMessages(errors))
-                .fieldErrorMessages(extractFieldErrorMessages(errors)).build();
+                .messages(extractErrorMessages(errors))
+                .fieldMessages(extractFieldErrorMessages(errors));
         return super.handleExceptionInternal(exception, body, headers, status, request);
     }
 
