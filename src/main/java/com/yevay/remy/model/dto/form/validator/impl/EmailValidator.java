@@ -1,6 +1,7 @@
 package com.yevay.remy.model.dto.form.validator.impl;
 
 import com.yevay.remy.model.dto.form.validator.ValidEmail;
+import org.apache.logging.log4j.util.Strings;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -18,6 +19,7 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if(Strings.isBlank(value)) return false;
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(value);
         return matcher.matches();
