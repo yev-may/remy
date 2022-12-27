@@ -3,6 +3,7 @@ package com.yevay.remy.view.api.controller;
 import com.yevay.remy.core.facade.AuthFacade;
 import com.yevay.remy.core.facade.UserFacade;
 import com.yevay.remy.model.dto.UserDto;
+import com.yevay.remy.model.dto.UserSessionDto;
 import com.yevay.remy.model.dto.form.UserLoginForm;
 import com.yevay.remy.model.dto.form.UserRegistrationForm;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody UserLoginForm form) {
-        authFacade.login(form);
+    public UserSessionDto login(@RequestBody UserLoginForm form) {
+        return authFacade.login(form);
     }
 }
