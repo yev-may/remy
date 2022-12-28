@@ -20,7 +20,7 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**").permitAll()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/user/register").anonymous()
+                .antMatchers("/registration").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Remy</title>
+</head>
+<body class="theme">
+<header th:replace="fragment/header :: header"></header>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <div class="mt-5 mb-3 text-center">
+                <h3>Registration</h3>
+            </div>
+            <!--/*@thymesVar id="userRegistrationForm" type="com.yevay.remy.model.dto.form.UserRegistrationForm"*/-->
+            <form th:action="@{/registration}" th:object="${userRegistrationForm}" method="post">
+                <div class="my-2">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" th:field="*{login}" id="login" class="form-control">
+                    <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}"
+                         class="alert alert-warning py-2">Login error message</div>
+                </div>
+                <div class="my-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" th:field="*{email}" id="email" class="form-control" >
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                         class="alert alert-warning py-2">Email error message</div>
+                </div>
+                <div class="my-2">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" th:field="*{password}" id="password" class="form-control">
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                         class="alert alert-warning py-2">Password error message<</div>
+                </div>
+                <div class="my-2">
+                    <label for="repeatPassword" class="form-label">Repeat password</label>
+                    <input type="password" th:field="*{repeatPassword}" id="repeatPassword" class="form-control">
+                    <div th:each="globalError : ${#fields.globalErrors()}" th:text="${globalError}"
+                         class="alert alert-warning py-2">Global error message<</div>
+                </div>
+                <button class="btn w-100 btn-theme mt-3">Create account</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
