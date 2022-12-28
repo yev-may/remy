@@ -26,7 +26,7 @@ public class WebSecurityConfig {
                 .formLogin()
                     .loginPage("/login")
                     .failureUrl("/login?error=true")
-                    .defaultSuccessUrl("/", true)
+                    .defaultSuccessUrl("/workspace/all", true)
                 .and()
                 .logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
                 .and()
