@@ -14,6 +14,6 @@ public class Workspace {
     @GeneratedValue
     private Long id;
     private String title;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CardBox> cardBoxes;
 }

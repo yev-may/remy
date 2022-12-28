@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private String email;
     private String login;
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Workspace> workspaces;
 
     @Override
