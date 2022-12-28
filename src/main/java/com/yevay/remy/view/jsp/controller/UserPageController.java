@@ -38,7 +38,7 @@ public class UserPageController {
             model.addAttribute("userRegistrationForm", userRegistrationForm);
             return "page/registration";
         }
-        userFacade.create(userRegistrationForm);
+        userFacade.register(userRegistrationForm);
         return "redirect:/login";
     }
 }

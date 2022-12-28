@@ -22,11 +22,4 @@ public class UserConvertor {
                 .password(passwordEncoder.encode(form.getPassword()))
                 .build();
     }
-
-    public UserDto toDto(User user) {
-        return UserDto.builder()
-                .email(user.getEmail())
-                .login(user.getLogin())
-                .build();
-    }
 }
