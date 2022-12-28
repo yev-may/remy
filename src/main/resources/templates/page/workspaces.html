@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Remy</title>
+</head>
+<body class="theme">
+<header th:replace="fragment/header :: header"></header>
+<div class="container">
+    <div class="row">
+        <!--/*@thymesVar id="workspaces" type="java.util.List<com.yevay.remy.model.dto.WorkspaceDto>"*/-->
+        <div class="col-6" th:each="workspace : ${workspaces}">
+            <p th:text="${workspace.title}"></p>
+            <a th:href="@{/workspace/{id}(id=${workspace.id})}" class="btn w-100 btn-theme-c mt-3">Enter</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <!--/*@thymesVar id="workspaceCreationForm" type="com.yevay.remy.model.dto.form.WorkspaceCreationForm"*/-->
+            <form th:action="@{/workspace/create}" th:object="${workspaceCreationForm}" method="post">
+                <div class="my-2">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" th:field="*{title}" id="title" class="form-control">
+                    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+                         class="alert alert-warning py-2">Title error message<</div>
+                </div>
+                <button class="btn w-100 btn-theme mt-3">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

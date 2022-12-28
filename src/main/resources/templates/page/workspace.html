@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Remy</title>
+</head>
+<body class="theme">
+<header th:replace="fragment/header :: header"></header>
+<div class="container">
+    <div class="row">
+        <!--/*@thymesVar id="workspace" type="com.yevay.remy.model.dto.WorkspaceDto"*/-->
+        <h2 th:text="${workspace.title}">Workspace title</h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a th:href="@{/workspace/all}" class="btn w-100 btn-theme mt-3">Back</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
