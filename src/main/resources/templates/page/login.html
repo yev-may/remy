@@ -10,11 +10,12 @@
     <title>Remy</title>
 </head>
 <body class="theme">
+    <header th:replace="fragment/header :: header"></header>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-3">
                 <div class="mt-5 mb-3 text-center">
-                    <h3 >Authorization</h3>
+                    <h3>Authorization</h3>
                 </div>
                 <div th:if="${error}" class="alert alert-danger">
                     Wrong email or password
