@@ -1,3 +1,12 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+main {
+  height: 100%;
+}
+
 :root {
   --color-1: #F2E5E5;
   --color-2: #E8C4C4;
