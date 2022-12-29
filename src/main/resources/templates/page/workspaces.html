@@ -13,24 +13,35 @@
 <header th:replace="fragment/header :: header"></header>
 <div class="container">
     <div class="row">
-        <!--/*@thymesVar id="workspaces" type="java.util.List<com.yevay.remy.model.dto.WorkspaceDto>"*/-->
-        <div class="col-6" th:each="workspace : ${workspaces}">
-            <p th:text="${workspace.title}"></p>
-            <a th:href="@{/workspace/{id}(id=${workspace.id})}" class="btn w-100 btn-theme-c mt-3">Enter</a>
+        <div class="col mt-4 text-center">
+            <h2>Workspaces</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <!--/*@thymesVar id="workspaceCreationForm" type="com.yevay.remy.model.dto.form.WorkspaceCreationForm"*/-->
-            <form th:action="@{/workspace/create}" th:object="${workspaceCreationForm}" method="post">
-                <div class="my-2">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" th:field="*{title}" id="title" class="form-control">
-                    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
-                         class="alert alert-warning py-2">Title error message<</div>
+    <div class="row row-cols-1 row-cols-md-3">
+        <!--/*@thymesVar id="workspaces" type="java.util.List<com.yevay.remy.model.dto.WorkspaceDto>"*/-->
+        <div class="col mt-4" th:each="workspace : ${workspaces}">
+            <div class="card">
+                <div class="card-body">
+                    <h3 th:text="${workspace.title}" class="card-title">Workspace title</h3>
+                    <a th:href="@{/workspace/{id}(id=${workspace.id})}" class="btn w-100 btn-theme-c mt-3">Enter</a>
                 </div>
-                <button class="btn w-100 btn-theme mt-3">Create</button>
-            </form>
+    
+            </div>
+        </div>
+        <div class="col mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <!--/*@thymesVar id="workspaceCreationForm" type="com.yevay.remy.model.dto.form.WorkspaceCreationForm"*/-->
+                    <form th:action="@{/workspace/create}" th:object="${workspaceCreationForm}" method="post">
+                        <div class="my-2">
+                            <input type="text" th:field="*{title}" id="title" class="form-control" placeholder="Title">
+                            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+                                class="alert alert-warning py-2">Title error message</div>
+                        </div>
+                        <button class="btn w-100 btn-theme mt-3">Create</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
