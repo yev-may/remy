@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Entity
@@ -19,4 +20,6 @@ public class Card {
     private String answer;
     private Integer repeatLevel;
     private LocalDate lastRepeatDate;
+    @ManyToOne
+    private CardBox box;
 }

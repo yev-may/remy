@@ -19,8 +19,8 @@ public class CardBox {
     private String title;
     private LocalDate lastRepeatDate;
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "box_id")
     private List<Card> cards;
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User owner;
 }
