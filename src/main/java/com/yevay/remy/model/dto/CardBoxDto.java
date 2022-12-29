@@ -10,5 +10,6 @@ import lombok.*;
 public class CardBoxDto {
     private long id;
     private String title;
-    private String lastRepeatDate;
+    private String lastRepeat;
+    private int cardsAddedToday;
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Remy</title>
+</head>
+<body>
+    <header th:replace="fragment/header :: header"></header>
+    <main>
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col align-self-center">
+
+                    <!--/*@thymesVar id="cardBoxes" type="java.util.List<com.yevay.remy.model.dto.CardBoxDto>"*/-->
+                    <div class="card mb-3" th:each="cardBox : ${cardBoxes}">
+                        <div class="card-body ">
+                            <div class="text-center">
+                                <h5 class="card-title" th:text="${cardBox.title}">Box title</h5>
+                            </div>
+                            <a th:href="@{/card-box/{id}(id=${cardBox.id})}" class="btn w-100 btn-theme">Repeat</a>
+                            <p class="card-text mb-0" th:text="${'Last repeat: ' + cardBox.lastRepeat}">Last repeat: 1 day ago</p>
+                            <p class="card-text" th:text="${'Card added today: ' + cardBox.cardsAddedToday}">Cards added today: 10</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
