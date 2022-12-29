@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private String login;
     private String password;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Workspace> workspaces;
+    private List<CardBox> cardBoxes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

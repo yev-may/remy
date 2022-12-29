@@ -21,6 +21,6 @@ public class CardBox {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Card> cards;
     @ManyToOne
-    @JoinColumn(name = "workspace_id")
-    private Workspace workspace;
+    @JoinColumn(name = "user_id")
+    private User owner;
 }

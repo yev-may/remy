@@ -3,7 +3,6 @@ package com.yevay.remy.core.facade.impl;
 import com.yevay.remy.core.facade.CardBoxFacade;
 import com.yevay.remy.core.service.CardBoxService;
 import com.yevay.remy.model.domain.CardBox;
-import com.yevay.remy.model.domain.Workspace;
 import com.yevay.remy.model.dto.form.CardBoxCreationForm;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +18,7 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
     @Override
     public void create(CardBoxCreationForm form) {
         CardBox cardBox = CardBox.builder()
-                .title(form.getTitle())
-                .workspace(Workspace.builder()
-                        .id(form.getWorkspaceId()).build()).build();
+                .title(form.getTitle()).build();
         cardBoxService.save(cardBox);
     }
 }
