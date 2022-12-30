@@ -1,6 +1,7 @@
 package com.yevay.remy.core.service.impl;
 
 import com.yevay.remy.core.service.CardBoxService;
+import com.yevay.remy.model.domain.Card;
 import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.repo.CardBoxRepository;
@@ -18,8 +19,13 @@ public class DefaultCardBoxService implements CardBoxService {
     }
 
     @Override
-    public List<CardBox> getAllForUser(User user) {
-        return cardBoxRepository.findAllByOwner(user);
+    public List<CardBox> getAllByOwner(User owner) {
+        return cardBoxRepository.findAllByOwner(owner);
+    }
+
+    @Override
+    public CardBox getByIdAndOwner(long id, User owner) {
+        return cardBoxRepository.findByIdAndOwner(id, owner);
     }
 
     @Override

@@ -5,11 +5,13 @@ import com.yevay.remy.core.service.CardBoxService;
 import com.yevay.remy.core.service.SessionService;
 import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
+import com.yevay.remy.model.dto.CardBoxDto;
 import com.yevay.remy.model.dto.CardBoxFacetDto;
 import com.yevay.remy.model.dto.form.CardBoxCreationForm;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,21 +27,37 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
 
     @Override
     public List<CardBoxFacetDto> getAllForCurrentUser() {
-        return getAllForUser(sessionService.getCurrentUser());
+        return getAllByOwner(sessionService.getCurrentUser());
     }
 
-    private List<CardBoxFacetDto> getAllForUser(User user) {
-        return cardBoxService.getAllForUser(user).stream()
-                .map(this::toDto)
+    private List<CardBoxFacetDto> getAllByOwner(User user) {
+        return cardBoxService.getAllByOwner(user).stream()
+                .map(this::toFacetDto)
                 .collect(Collectors.toList());
     }
 
-    private CardBoxFacetDto toDto(CardBox cardBox) {
+    private CardBoxFacetDto toFacetDto(CardBox cardBox) {
         return CardBoxFacetDto.builder()
                 .id(cardBox.getId())
                 .title(cardBox.getTitle())
                 .lastRepeat("1 day age")
                 .cardsAddedToday(1).build();
+    }
+
+    @Override
+    public CardBoxDto getByIdForCurrentUser(long id) {
+        return getByIdAndOwner(id, sessionService.getCurrentUser());
+    }
+
+    private CardBoxDto getByIdAndOwner(long id, User owner) {
+        return Optional.ofNullable(cardBoxService.getByIdAndOwner(id, owner))
+                .map(this::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Card box with id [" + id + "] for and owner [" + owner.getLogin() +"] not found"));
+    }
+
+    private CardBoxDto toDto(CardBox cardBox) {
+        return CardBoxDto.builder()
+                .title(cardBox.getTitle()).build();
     }
 
     @Override

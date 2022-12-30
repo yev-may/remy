@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CardBoxRepository extends CrudRepository<CardBox, Long> {
-    List<CardBox> findAllByOwner(User user);
+    List<CardBox> findAllByOwner(User owner);
+    CardBox findByIdAndOwner(long id, User owner);
 }

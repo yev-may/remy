@@ -6,6 +6,7 @@ import com.yevay.remy.model.domain.User;
 import java.util.List;
 
 public interface CardBoxService {
-    List<CardBox> getAllForUser(User user);
+    List<CardBox> getAllByOwner(User owner);
+    CardBox getByIdAndOwner(long id, User owner);
     void save(CardBox cardBox);
 }

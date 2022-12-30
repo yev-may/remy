@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +23,7 @@ public class CardBoxController {
     }
 
     @GetMapping("/all")
-    public String getCardBoxes(Model model) {
+    public String getCardBoxesPage(Model model) {
         cardBoxFacade.create(CardBoxCreationForm.builder().title("Test-1").build());
         model.addAttribute("cardBoxes", cardBoxFacade.getAllForCurrentUser());
         return "page/card-box-list";
@@ -36,5 +37,11 @@ public class CardBoxController {
         }
         cardBoxFacade.create(cardBoxCreationForm);
         return "redirect:/workspaces";
+    }
+
+    @GetMapping("/{id}")
+    public String getCardBoxPage(@PathVariable long id, Model model) {
+        model.addAttribute("cardBox", cardBoxFacade.getByIdForCurrentUser(id));
+        return "page/card-box";
     }
 }
