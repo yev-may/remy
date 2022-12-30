@@ -17,7 +17,7 @@
             <div class="row h-100">
                 <div class="col align-self-center">
 
-                    <!--/*@thymesVar id="cardBoxes" type="java.util.List<com.yevay.remy.model.dto.CardBoxDto>"*/-->
+                    <!--/*@thymesVar id="cardBoxes" type="java.util.List<com.yevay.remy.model.dto.CardBoxFacetDto>"*/-->
                     <div class="card mb-3" th:each="cardBox : ${cardBoxes}">
                         <div class="card-body ">
                             <div class="text-center">
@@ -25,7 +25,9 @@
                             </div>
                             <a th:href="@{/card-box/{id}(id=${cardBox.id})}" class="btn w-100 btn-theme">Repeat</a>
                             <p class="card-text mb-0" th:text="${'Last repeat: ' + cardBox.lastRepeat}">Last repeat: 1 day ago</p>
+                            <a th:href="@{/card-box/{id}(id=${cardBox.id})}" class="btn w-100 btn-theme">Add card</a>
                             <p class="card-text" th:text="${'Card added today: ' + cardBox.cardsAddedToday}">Cards added today: 10</p>
+                            <a th:href="@{/card-box/{id}(id=${cardBox.id})}" class="btn w-100 btn-theme">Details</a>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import com.yevay.remy.core.service.CardBoxService;
 import com.yevay.remy.core.service.SessionService;
 import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
-import com.yevay.remy.model.dto.CardBoxDto;
+import com.yevay.remy.model.dto.CardBoxFacetDto;
 import com.yevay.remy.model.dto.form.CardBoxCreationForm;
 import org.springframework.stereotype.Component;
 
@@ -24,18 +24,18 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
     }
 
     @Override
-    public List<CardBoxDto> getAllForCurrentUser() {
+    public List<CardBoxFacetDto> getAllForCurrentUser() {
         return getAllForUser(sessionService.getCurrentUser());
     }
 
-    private List<CardBoxDto> getAllForUser(User user) {
+    private List<CardBoxFacetDto> getAllForUser(User user) {
         return cardBoxService.getAllForUser(user).stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
     }
 
-    private CardBoxDto toDto(CardBox cardBox) {
-        return CardBoxDto.builder()
+    private CardBoxFacetDto toDto(CardBox cardBox) {
+        return CardBoxFacetDto.builder()
                 .id(cardBox.getId())
                 .title(cardBox.getTitle())
                 .lastRepeat("1 day age")
