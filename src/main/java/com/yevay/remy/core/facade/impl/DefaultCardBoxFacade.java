@@ -57,6 +57,7 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
 
     private CardBoxDto toDto(CardBox cardBox) {
         return CardBoxDto.builder()
+                .id(cardBox.getId())
                 .title(cardBox.getTitle()).build();
     }
 

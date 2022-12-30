@@ -8,5 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardBoxDto {
+    private long id;
     private String title;
 }
