@@ -1,7 +1,6 @@
 package com.yevay.remy.model.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +11,9 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Card {
     @Id
     @GeneratedValue
