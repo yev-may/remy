@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/icon/favicon.png}">
+    <title>Remy</title>
+</head>
+<body>
+<header th:replace="fragment/header :: header"></header>
+<main>
+<div class="container h-100">
+<div class="row h-100">
+<div class="col align-self-center">
+
+    <!--/*@thymesVar id="cards" type="java.util.List<com.yevay.remy.model.dto.CardFacetDto>"*/-->
+    <div class="card mb-2" th:each="card : ${cards}">
+        <div class="card-body">
+            <p class="card-text" th:text="${card.shortQuestion}">Card question beginning...</p>
+            <a class="btn w-100 btn-theme" th:href="@{/card-box/{boxId}/card/{cardId}(boxId=${boxId}, cardId=${card.id})}">Details</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

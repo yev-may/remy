@@ -13,13 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/card-box/{cardBoxId}/card")
+@RequestMapping("/card-box/{boxId}/card")
 public class CardPageController {
 
     private final CardFacade cardFacade;
 
     public CardPageController(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
+    }
+
+    @GetMapping("/all")
+    public String getCardsPage(@PathVariable long boxId, Model model) {
+        model.addAttribute("boxId", boxId);
+        model.addAttribute("cards", cardFacade.getFacetsByBoxForCurrentUser(boxId));
+        return "page/card-list";
     }
 
     @GetMapping("/create")
@@ -29,13 +36,13 @@ public class CardPageController {
     }
 
     @PostMapping("/create")
-    public String create(@PathVariable long cardBoxId, @Valid CardCreationForm cardCreationForm, BindingResult result, Model model) {
+    public String create(@PathVariable long boxId, @Valid CardCreationForm cardCreationForm, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("cardCreationForm", cardCreationForm);
             return "page/card-create";
         }
-        cardCreationForm.setBoxId(cardBoxId);
+        cardCreationForm.setBoxId(boxId);
         cardFacade.create(cardCreationForm);
-        return "redirect:/card-box/" + cardBoxId;
+        return "redirect:/card-box/" + boxId;
     }
 }
