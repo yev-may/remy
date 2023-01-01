@@ -9,10 +9,14 @@ import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.CardFacetDto;
 import com.yevay.remy.model.dto.form.CardCreationForm;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class DefaultCardFacade implements CardFacade {
@@ -30,15 +34,19 @@ public class DefaultCardFacade implements CardFacade {
     }
 
     @Override
-    public List<CardFacetDto> getFacetsByBoxForCurrentUser(long boxId) {
-        return getFacetsByBoxAndOwner(boxId, sessionService.getCurrentUser());
+    public Page<CardFacetDto> getFacetsByBoxForCurrentUser(long boxId, Pageable pageable) {
+        return getFacetsByBoxAndOwner(boxId, sessionService.getCurrentUser(), pageable);
     }
 
-    private List<CardFacetDto> getFacetsByBoxAndOwner(long boxId, User owner) {
+    private Page<CardFacetDto> getFacetsByBoxAndOwner(long boxId, User owner, Pageable pageable) {
         CardBox cardBox = cardBoxService.getByIdAndOwner(boxId, owner);
-        return cardService.getByBox(cardBox).stream()
-                .map(this::toFacetDto)
-                .collect(Collectors.toList());
+        Page<Card> cardPage = cardService.getByBox(cardBox, pageable);
+        List<CardFacetDto> cardFacets = toFacetDto(cardPage.get());
+        return new PageImpl<>(cardFacets, pageable, cardPage.getTotalElements());
+    }
+
+    private List<CardFacetDto> toFacetDto(Stream<Card> cardStream) {
+        return cardStream.map(this::toFacetDto).collect(Collectors.toList());
     }
 
     private CardFacetDto toFacetDto(Card card) {

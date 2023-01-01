@@ -2,13 +2,12 @@ package com.yevay.remy.view.jsp.controller;
 
 import com.yevay.remy.core.facade.CardFacade;
 import com.yevay.remy.model.dto.form.CardCreationForm;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,9 +22,11 @@ public class CardPageController {
     }
 
     @GetMapping("/all")
-    public String getCardsPage(@PathVariable long boxId, Model model) {
+    public String getCardsPage(@PathVariable long boxId, @RequestParam(defaultValue = "0") int pageNumber,
+                               @RequestParam(defaultValue = "5") int pageSize, Model model) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         model.addAttribute("boxId", boxId);
-        model.addAttribute("cards", cardFacade.getFacetsByBoxForCurrentUser(boxId));
+        model.addAttribute("cardPage", cardFacade.getFacetsByBoxForCurrentUser(boxId, pageable));
         return "page/card-list";
     }
 
