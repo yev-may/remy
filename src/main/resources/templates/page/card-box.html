@@ -16,57 +16,57 @@
     <header th:replace="fragment/header :: header"></header>
     <main>
         <div class="container h-100">
-            <div class="row h-100">
-                <div class="col align-self-center">
+        <div class="row h-100">
+        <div class="col align-self-center">
 
-                    <div class="text-center">
-                        <!--/*@thymesVar id="cardBox" type="com.yevay.remy.model.dto.CardBoxDto"*/-->
-                        <h3 th:text="${cardBox.title}">Card box title</h3>
-                    </div>
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Level</th>
-                                <th>Cards</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>I</td>
-                                <td>10</td>
-                                <th>View</th>
-                            </tr>
-                            <tr>
-                                <td>II</td>
-                                <td>20</td>
-                                <th>View</th>
-                            </tr>
-                            <tr>
-                                <td>III</td>
-                                <td>10</td>
-                                <th>View</th>
-                            </tr>
-                            <tr>
-                                <td>IV</td>
-                                <td>5</td>
-                                <th>View</th>
-                            </tr>
-                            <tr>
-                                <td>Finished</td>
-                                <td>5</td>
-                                <th>View</th>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="mt-3">
-                        <a th:href="@{/card-box/{cardBoxId}/card/all(cardBoxId=${cardBox.id})}" class="btn w-100 btn-theme">View all</a>
-                    </div>
-                    <div class="mt-3">
-                        <a th:href="@{/card-box/{cardBoxId}/card/create(cardBoxId=${cardBox.id})}" class="btn w-100 btn-theme">Add card</a>
-                    </div>
-                </div>
+            <div class="text-center">
+                <!--/*@thymesVar id="cardBox" type="com.yevay.remy.model.dto.CardBoxDto"*/-->
+                <h3 th:text="${cardBox.title}">Card box title</h3>
             </div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Cards</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>I</td>
+                        <td>10</td>
+                        <th>View</th>
+                    </tr>
+                    <tr>
+                        <td>II</td>
+                        <td>20</td>
+                        <th>View</th>
+                    </tr>
+                    <tr>
+                        <td>III</td>
+                        <td>10</td>
+                        <th>View</th>
+                    </tr>
+                    <tr>
+                        <td>IV</td>
+                        <td>5</td>
+                        <th>View</th>
+                    </tr>
+                    <tr>
+                        <td>Finished</td>
+                        <td>5</td>
+                        <th>View</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mt-3">
+                <a th:href="@{/card-box/{cardBoxId}/card/all(cardBoxId=${cardBox.id})}" class="btn w-100 btn-theme">View all</a>
+            </div>
+            <div class="mt-3">
+                <a th:href="@{/card-box/{cardBoxId}/card/create(cardBoxId=${cardBox.id})}" class="btn w-100 btn-theme">Add card</a>
+            </div>
+        </div>
+        </div>
         </div>
     </main>
 </body>

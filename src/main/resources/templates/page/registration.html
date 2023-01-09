@@ -13,52 +13,52 @@
     <title>Remy</title>
 </head>
 <body>
-<header th:replace="fragment/header :: header"></header>
-<main>
-<div class="container h-100">
-<div class="row h-100">
-<div class="col align-self-center">
+    <header th:replace="fragment/header :: header"></header>
+    <main>
+        <div class="container h-100">
+        <div class="row h-100">
+        <div class="col align-self-center">
 
-    <div class="text-center">
-        <h3>Registration</h3>
-    </div>
-    <!--/*@thymesVar id="userRegistrationForm" type="com.yevay.remy.model.dto.form.UserRegistrationForm"*/-->
-    <form th:action="@{/registration}" th:object="${userRegistrationForm}" method="post">
-        <div class="mt-1">
-            <label class="form-label" for="login">Login</label>
-            <input class="form-control" id="login" type="text" th:field="*{login}">
-            <div class="alert alert-warning mt-1" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">
-                <span>Login error message</span>
+            <div class="text-center">
+                <h3>Registration</h3>
             </div>
+            <!--/*@thymesVar id="userRegistrationForm" type="com.yevay.remy.model.dto.form.UserRegistrationForm"*/-->
+            <form class="theme-form" th:action="@{/registration}" th:object="${userRegistrationForm}" method="post">
+                <div class="mt-1">
+                    <label class="form-label" for="login">Login</label>
+                    <input class="form-control" id="login" type="text" th:field="*{login}">
+                    <div class="alert alert-warning mt-1" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">
+                        <span>Login error message</span>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <label class="form-label" for="email">Email</label>
+                    <input class="form-control" id="email" type="text" th:field="*{email}">
+                    <div class="alert alert-warning mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                        <span>Email error message</span>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-control" id="password" type="password" th:field="*{password}">
+                    <div class="alert alert-warning mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                        <span>Password error message</span>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <label class="form-label" for="repeatPassword">Repeat password</label>
+                    <input class="form-control" id="repeatPassword" type="password" th:field="*{repeatPassword}">
+                    <div class="alert alert-warning mt-1" th:each="globalError : ${#fields.globalErrors()}" th:text="${globalError}">
+                        <span>Global error message</span>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn w-100 btn-theme">Create account</button>
+                </div>
+            </form>
         </div>
-        <div class="mt-1">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control" id="email" type="text" th:field="*{email}">
-            <div class="alert alert-warning mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-                <span>Email error message</span>
-            </div>
         </div>
-        <div class="mt-1">
-            <label class="form-label" for="password">Password</label>
-            <input class="form-control" id="password" type="password" th:field="*{password}">
-            <div class="alert alert-warning mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                <span>Password error message</span>
-            </div>
         </div>
-        <div class="mt-1">
-            <label class="form-label" for="repeatPassword">Repeat password</label>
-            <input class="form-control" id="repeatPassword" type="password" th:field="*{repeatPassword}">
-            <div class="alert alert-warning mt-1" th:each="globalError : ${#fields.globalErrors()}" th:text="${globalError}">
-                <span>Global error message</span>
-            </div>
-        </div>
-        <div class="mt-3">
-            <button class="btn w-100 btn-theme">Create account</button>
-        </div>
-    </form>
-</div>
-</div>
-</div>
-</main>
+    </main>
 </body>
 </html>
