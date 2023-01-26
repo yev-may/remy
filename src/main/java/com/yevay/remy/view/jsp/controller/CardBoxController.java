@@ -28,14 +28,20 @@ public class CardBoxController {
         return "page/card-box/card-box-list";
     }
 
+    @GetMapping("/create")
+    public String getCreateCardNoxPage(Model model) {
+        model.addAttribute("cardBoxCreationForm", new CardBoxCreationForm());
+        return "page/card-box/card-box-create";
+    }
+
     @PostMapping("/create")
     public String create(@Valid CardBoxCreationForm cardBoxCreationForm, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("cardBoxCreationForm", cardBoxCreationForm);
-            return "page/workspace";
+            return "page/card-box/card-box-create";
         }
         cardBoxFacade.create(cardBoxCreationForm);
-        return "redirect:/workspaces";
+        return "redirect:/card-box/all";
     }
 
     @GetMapping("/{id}")

@@ -19,8 +19,12 @@
         <div class="row h-100">
         <div class="col align-self-center">
 
+            <div class="text-center">
+                <h2>Card boxes</h2>
+            </div>
+
             <!--/*@thymesVar id="cardBoxes" type="java.util.List<com.yevay.remy.model.dto.CardBoxFacetDto>"*/-->
-            <div class="theme-card-box" th:each="cardBox : ${cardBoxes}">
+            <div class="theme-card-box mb-4 th:each="cardBox : ${cardBoxes}">
                 <div class="text-center">
                     <h5 th:text="${cardBox.title}">Card box title</h5>
                 </div>
@@ -37,6 +41,10 @@
                         <a th:href="@{/card-box/{id}(id=${cardBox.id})}" class="btn w-100 btn-theme">Details</a>
                     </div>
                 </div>
+            </div>
+
+            <div>
+                <a th:href="@{/card-box/create}" class="btn w-100 btn-theme">Add new</a>
             </div>
         </div>
         </div>
