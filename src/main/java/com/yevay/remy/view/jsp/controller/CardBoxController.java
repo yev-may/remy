@@ -24,9 +24,8 @@ public class CardBoxController {
 
     @GetMapping("/all")
     public String getCardBoxesPage(Model model) {
-        cardBoxFacade.create(CardBoxCreationForm.builder().title("Test-1").build());
         model.addAttribute("cardBoxes", cardBoxFacade.getAllForCurrentUser());
-        return "page/card-box-list";
+        return "page/card-box/card-box-list";
     }
 
     @PostMapping("/create")
@@ -42,6 +41,6 @@ public class CardBoxController {
     @GetMapping("/{id}")
     public String getCardBoxPage(@PathVariable long id, Model model) {
         model.addAttribute("cardBox", cardBoxFacade.getByIdForCurrentUser(id));
-        return "page/card-box";
+        return "page/card-box/card-box";
     }
 }
