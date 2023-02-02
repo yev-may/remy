@@ -1,6 +1,5 @@
 package com.yevay.remy.core.service;
 
-import com.yevay.remy.model.domain.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
