@@ -1,8 +1,8 @@
 package com.yevay.remy.view.api.controller;
 
 import com.yevay.remy.core.facade.JwtAuthFacade;
-import com.yevay.remy.view.api.dto.JwtRequest;
-import com.yevay.remy.view.api.dto.JwtResponse;
+import com.yevay.remy.model.dto.jwt.JwtRequest;
+import com.yevay.remy.model.dto.jwt.JwtResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

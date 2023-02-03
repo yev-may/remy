@@ -1,4 +1,4 @@
-package com.yevay.remy.view.api.dto;
+package com.yevay.remy.model.dto.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

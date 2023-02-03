@@ -2,8 +2,8 @@ package com.yevay.remy.core.facade.impl;
 
 import com.yevay.remy.core.facade.JwtAuthFacade;
 import com.yevay.remy.core.service.JwtTokenService;
-import com.yevay.remy.view.api.dto.JwtRequest;
-import com.yevay.remy.view.api.dto.JwtResponse;
+import com.yevay.remy.model.dto.jwt.JwtRequest;
+import com.yevay.remy.model.dto.jwt.JwtResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;

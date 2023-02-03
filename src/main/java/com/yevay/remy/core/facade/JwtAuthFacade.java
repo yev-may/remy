@@ -1,7 +1,7 @@
 package com.yevay.remy.core.facade;
 
-import com.yevay.remy.view.api.dto.JwtRequest;
-import com.yevay.remy.view.api.dto.JwtResponse;
+import com.yevay.remy.model.dto.jwt.JwtRequest;
+import com.yevay.remy.model.dto.jwt.JwtResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
