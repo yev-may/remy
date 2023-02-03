@@ -47,9 +47,8 @@ public class DefaultJwtTokenService implements JwtTokenService {
     }
 
     @Override
-    public boolean validateToken(String token, UserDetails user) {
-        String username = getUsernameFromToken(token);
-        return username.equals(user.getUsername()) && !isTokenExpired(token);
+    public boolean validateToken(String token) {
+        return !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {

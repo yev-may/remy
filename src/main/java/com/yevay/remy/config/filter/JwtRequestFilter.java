@@ -1,12 +1,7 @@
 package com.yevay.remy.config.filter;
 
-import com.yevay.remy.core.service.JwtTokenService;
-import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import com.yevay.remy.core.facade.JwtAuthFacade;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,18 +10,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private static final String TOKEN_PREFIX = "Bearer_";
 
-    private final UserDetailsService userDetailsService;
-    private final JwtTokenService jwtTokenService;
+    private final JwtAuthFacade jwtAuthFacade;
 
-    public JwtRequestFilter(UserDetailsService userDetailsService, JwtTokenService jwtTokenService) {
-        this.userDetailsService = userDetailsService;
-        this.jwtTokenService = jwtTokenService;
+    public JwtRequestFilter(JwtAuthFacade jwtAuthFacade) {
+        this.jwtAuthFacade = jwtAuthFacade;
     }
 
     @Override
@@ -37,55 +31,27 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private void processJwtAuth(HttpServletRequest request) {
-        if (containsToken(request)) {
-            String jwtToken = getToken(request);
-            String username = getUsername(jwtToken);
-
-            if (canAuth(username)) {
-                auth(username, jwtToken, request);
-            }
-        } else {
-            System.out.println("Jwt token is not provided");
+        if (notAuthed()) {
+            getToken(request)
+                    .filter(jwtAuthFacade::validateToken)
+                    .ifPresent(token -> jwtAuthFacade.auth(token, request));
         }
     }
 
-    private boolean containsToken(HttpServletRequest request) {
-        String requestAuthorization = request.getHeader("Authorization");
-        return requestAuthorization != null && requestAuthorization.startsWith(TOKEN_PREFIX);
+    private Optional<String> getToken(HttpServletRequest request) {
+        return getAuthFromRequest(request)
+                .map(this::getTokenFromAuth);
     }
 
-    private String getToken(HttpServletRequest request) {
-        String requestAuthorization = request.getHeader("Authorization");
-        return requestAuthorization.substring(TOKEN_PREFIX.length());
+    private Optional<String> getAuthFromRequest(HttpServletRequest request) {
+        return Optional.ofNullable(request.getHeader("Authorization"));
     }
 
-    private String  getUsername(String token) {
-        try {
-            return jwtTokenService.getUsernameFromToken(token);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Unable to get JWT token");
-        } catch (ExpiredJwtException e) {
-            throw new RuntimeException("JWT token has expired");
-        }
+    private String getTokenFromAuth(String auth) {
+        return auth.substring(TOKEN_PREFIX.length());
     }
 
-    private boolean canAuth(String username) {
-        return username != null && SecurityContextHolder.getContext().getAuthentication() == null;
-    }
-
-    private void auth(String username, String jwtToken, HttpServletRequest request) {
-        UserDetails user = userDetailsService.loadUserByUsername(username);
-
-        if (jwtTokenService.validateToken(jwtToken, user)) {
-            UsernamePasswordAuthenticationToken auth = createAuthToken(user, request);
-            SecurityContextHolder.getContext().setAuthentication(auth);
-        }
-    }
-
-    private UsernamePasswordAuthenticationToken createAuthToken(UserDetails user, HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        return authToken;
+    private boolean notAuthed() {
+        return SecurityContextHolder.getContext().getAuthentication() == null;
     }
 }

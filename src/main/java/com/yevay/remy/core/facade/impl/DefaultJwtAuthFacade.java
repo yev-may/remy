@@ -8,9 +8,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class DefaultJwtAuthFacade implements JwtAuthFacade {
@@ -43,5 +47,25 @@ public class DefaultJwtAuthFacade implements JwtAuthFacade {
         } catch (BadCredentialsException e) {
             throw new RuntimeException("Invalid credits", e);
         }
+    }
+
+    @Override
+    public void auth(String token, HttpServletRequest request) {
+        String usernameFromToken = jwtTokenService.getUsernameFromToken(token);
+        UserDetails user = userDetailsService.loadUserByUsername(usernameFromToken);
+        UsernamePasswordAuthenticationToken auth = createAuthToken(user, request);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
+
+    private UsernamePasswordAuthenticationToken createAuthToken(UserDetails user, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        return authToken;
+    }
+
+    @Override
+    public boolean validateToken(String token) {
+        return jwtTokenService.validateToken(token);
     }
 }
