@@ -1,7 +1,11 @@
 package com.yevay.remy.config.filter;
 
-import com.yevay.remy.core.facade.JwtAuthFacade;
+import com.yevay.remy.core.service.JwtTokenService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,10 +21,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private static final String TOKEN_PREFIX = "Bearer_";
 
-    private final JwtAuthFacade jwtAuthFacade;
+    private final JwtTokenService jwtTokenService;
+    private final UserDetailsService userDetailsService;
 
-    public JwtRequestFilter(JwtAuthFacade jwtAuthFacade) {
-        this.jwtAuthFacade = jwtAuthFacade;
+    public JwtRequestFilter(JwtTokenService jwtTokenService, UserDetailsService userDetailsService) {
+        this.jwtTokenService = jwtTokenService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -33,8 +39,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private void processJwtAuth(HttpServletRequest request) {
         if (notAuthed()) {
             getToken(request)
-                    .filter(jwtAuthFacade::validateToken)
-                    .ifPresent(token -> jwtAuthFacade.auth(token, request));
+                .filter(this::validateToken)
+                .ifPresent(token -> auth(token, request));
         }
     }
 
@@ -53,5 +59,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private boolean notAuthed() {
         return SecurityContextHolder.getContext().getAuthentication() == null;
+    }
+
+    public void auth(String token, HttpServletRequest request) {
+        String usernameFromToken = jwtTokenService.getUsernameFromToken(token);
+        UserDetails user = userDetailsService.loadUserByUsername(usernameFromToken);
+        UsernamePasswordAuthenticationToken auth = createAuthToken(user, request);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
+
+    private UsernamePasswordAuthenticationToken createAuthToken(UserDetails user, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        return authToken;
+    }
+
+    public boolean validateToken(String token) {
+        return jwtTokenService.validateToken(token);
     }
 }

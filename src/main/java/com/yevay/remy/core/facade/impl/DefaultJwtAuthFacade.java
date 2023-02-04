@@ -48,24 +48,4 @@ public class DefaultJwtAuthFacade implements JwtAuthFacade {
             throw new RuntimeException("Invalid credits", e);
         }
     }
-
-    @Override
-    public void auth(String token, HttpServletRequest request) {
-        String usernameFromToken = jwtTokenService.getUsernameFromToken(token);
-        UserDetails user = userDetailsService.loadUserByUsername(usernameFromToken);
-        UsernamePasswordAuthenticationToken auth = createAuthToken(user, request);
-        SecurityContextHolder.getContext().setAuthentication(auth);
-    }
-
-    private UsernamePasswordAuthenticationToken createAuthToken(UserDetails user, HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        return authToken;
-    }
-
-    @Override
-    public boolean validateToken(String token) {
-        return jwtTokenService.validateToken(token);
-    }
 }
