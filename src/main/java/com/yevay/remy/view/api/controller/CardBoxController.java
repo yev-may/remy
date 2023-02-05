@@ -3,6 +3,7 @@ package com.yevay.remy.view.api.controller;
 import com.yevay.remy.core.facade.CardBoxFacade;
 import com.yevay.remy.model.dto.CardBoxFacetDto;
 import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
+import com.yevay.remy.model.dto.card.box.request.DeleteCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.GetCardBoxPageableRequest;
 import com.yevay.remy.model.dto.card.box.request.UpdateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.response.CardBoxFacetPageableResponse;
@@ -40,5 +41,11 @@ public class CardBoxController {
     public ResponseEntity<?> updateCardBox(@Valid @RequestBody UpdateCardBoxRequest request) {
         CardBoxFacetDto updatedCardBox = cardBoxFacade.update(request);
         return ResponseEntity.ok(updatedCardBox);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteCardBox(@RequestBody DeleteCardBoxRequest request) {
+        cardBoxFacade.delete(request);
+        return ResponseEntity.ok("Card box deleted");
     }
 }

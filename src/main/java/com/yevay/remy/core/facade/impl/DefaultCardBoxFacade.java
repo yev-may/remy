@@ -9,6 +9,7 @@ import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.CardBoxDto;
 import com.yevay.remy.model.dto.CardBoxFacetDto;
 import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
+import com.yevay.remy.model.dto.card.box.request.DeleteCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.UpdateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.response.CardBoxFacetPageableResponse;
 import com.yevay.remy.model.dto.form.CardBoxCreationForm;
@@ -55,6 +56,11 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
                 .owner(sessionService.getCurrentUser()).build();
         CardBox updatedCardBox = cardBoxService.save(cardBox);
         return cardBoxConverter.toFacet(updatedCardBox);
+    }
+
+    @Override
+    public void delete(DeleteCardBoxRequest request) {
+        cardBoxService.delete(request.getId());
     }
 
     @Override

@@ -39,4 +39,9 @@ public class DefaultCardBoxService implements CardBoxService {
     public CardBox save(CardBox cardBox) {
         return cardBoxRepository.save(cardBox);
     }
+
+    @Override
+    public void delete(long cardBoxId) {
+        cardBoxRepository.deleteById(cardBoxId);
+    }
 }

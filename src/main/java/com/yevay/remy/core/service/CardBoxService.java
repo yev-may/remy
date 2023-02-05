@@ -17,4 +17,5 @@ public interface CardBoxService {
 
     CardBox save(CardBox cardBox);
 
+    void delete(long cardBoxId);
 }
