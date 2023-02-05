@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DefaultUserDetailsService implements UserDetailsService {
 
+    private final static String USER_NOT_FOUND_ERROR = "User with login [%s] not found";
+
     private final UserRepository userRepository;
 
     public DefaultUserDetailsService(UserRepository userRepository) {
@@ -16,8 +18,8 @@ public class DefaultUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User with email [" + email + "] not found"));
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        return userRepository.findByLogin(login)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(USER_NOT_FOUND_ERROR, login)));
     }
 }

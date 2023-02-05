@@ -19,7 +19,12 @@ public class UserConvertor {
         return User.builder()
                 .email(form.getEmail())
                 .login(form.getLogin())
-                .password(passwordEncoder.encode(form.getPassword()))
-                .build();
+                .password(passwordEncoder.encode(form.getPassword())).build();
+    }
+
+    public UserDto toDto(User user) {
+        return UserDto.builder()
+                .email(user.getEmail())
+                .login(user.getLogin()).build();
     }
 }
