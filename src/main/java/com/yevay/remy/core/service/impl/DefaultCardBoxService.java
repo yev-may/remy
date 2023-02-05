@@ -5,6 +5,8 @@ import com.yevay.remy.model.domain.Card;
 import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.repo.CardBoxRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,11 @@ public class DefaultCardBoxService implements CardBoxService {
 
     public DefaultCardBoxService(CardBoxRepository cardBoxRepository) {
         this.cardBoxRepository = cardBoxRepository;
+    }
+
+    @Override
+    public Page<CardBox> getByOwner(Pageable pageable, User owner) {
+        return cardBoxRepository.findByOwner(pageable, owner);
     }
 
     @Override

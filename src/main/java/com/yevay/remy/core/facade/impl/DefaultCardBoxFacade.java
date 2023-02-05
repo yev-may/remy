@@ -3,11 +3,15 @@ package com.yevay.remy.core.facade.impl;
 import com.yevay.remy.core.facade.CardBoxFacade;
 import com.yevay.remy.core.service.CardBoxService;
 import com.yevay.remy.core.service.SessionService;
+import com.yevay.remy.model.converter.CardBoxConverter;
 import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.CardBoxDto;
 import com.yevay.remy.model.dto.CardBoxFacetDto;
+import com.yevay.remy.model.dto.card.box.response.CardBoxFacetPageableResponse;
 import com.yevay.remy.model.dto.form.CardBoxCreationForm;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,10 +23,18 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
 
     private final CardBoxService cardBoxService;
     private final SessionService sessionService;
+    private final CardBoxConverter cardBoxConverter;
 
-    public DefaultCardBoxFacade(CardBoxService cardBoxService, SessionService sessionService) {
+    public DefaultCardBoxFacade(CardBoxService cardBoxService, SessionService sessionService, CardBoxConverter cardBoxConverter) {
         this.cardBoxService = cardBoxService;
         this.sessionService = sessionService;
+        this.cardBoxConverter = cardBoxConverter;
+    }
+
+    @Override
+    public CardBoxFacetPageableResponse getPageable(Pageable pageable) {
+        Page<CardBox> cardBoxPage = cardBoxService.getByOwner(pageable, sessionService.getCurrentUser());
+        return cardBoxConverter.toPageableFacetResponse(cardBoxPage);
     }
 
     @Override

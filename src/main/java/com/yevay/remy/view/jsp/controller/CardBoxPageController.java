@@ -14,11 +14,11 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/card-box")
-public class CardBoxController {
+public class CardBoxPageController {
 
     private final CardBoxFacade cardBoxFacade;
 
-    public CardBoxController(CardBoxFacade cardBoxFacade) {
+    public CardBoxPageController(CardBoxFacade cardBoxFacade) {
         this.cardBoxFacade = cardBoxFacade;
     }
 
