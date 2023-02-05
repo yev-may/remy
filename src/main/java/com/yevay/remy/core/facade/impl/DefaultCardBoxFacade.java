@@ -8,6 +8,7 @@ import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.CardBoxDto;
 import com.yevay.remy.model.dto.CardBoxFacetDto;
+import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.response.CardBoxFacetPageableResponse;
 import com.yevay.remy.model.dto.form.CardBoxCreationForm;
 import org.springframework.data.domain.Page;
@@ -35,6 +36,14 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
     public CardBoxFacetPageableResponse getPageable(Pageable pageable) {
         Page<CardBox> cardBoxPage = cardBoxService.getByOwner(pageable, sessionService.getCurrentUser());
         return cardBoxConverter.toPageableFacetResponse(cardBoxPage);
+    }
+
+    @Override
+    public void create(CreateCardBoxRequest request) {
+        CardBox cardBox = CardBox.builder()
+                .title(request.getTitle())
+                .owner(sessionService.getCurrentUser()).build();
+        cardBoxService.save(cardBox);
     }
 
     @Override
