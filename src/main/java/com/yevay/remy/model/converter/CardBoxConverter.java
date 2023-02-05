@@ -18,6 +18,7 @@ public class CardBoxConverter {
         return CardBoxFacetPageableResponse.builder()
                 .totalElements(cardBoxFacetPage.getTotalElements())
                 .totalPages(cardBoxFacetPage.getTotalPages())
+                .currentPage(cardBoxFacetPage.getNumber())
                 .facets(cardBoxFacetPage.getContent()).build();
     }
 

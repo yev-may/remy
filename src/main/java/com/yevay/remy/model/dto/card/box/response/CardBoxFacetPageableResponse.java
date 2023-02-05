@@ -16,6 +16,8 @@ public class CardBoxFacetPageableResponse {
 
     private int totalPages;
 
+    private int currentPage;
+
     private List<CardBoxFacetDto> facets;
 
 }
