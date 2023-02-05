@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/card-box/{boxId}/card")
+@RequestMapping("/page/card-box/{boxId}/card")
 public class CardPageController {
 
     private final CardFacade cardFacade;

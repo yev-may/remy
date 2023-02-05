@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/card-box")
+@RequestMapping("/page/card-box")
 public class CardBoxPageController {
 
     private final CardBoxFacade cardBoxFacade;
