@@ -15,6 +15,6 @@ public interface CardBoxService {
 
     CardBox getByIdAndOwner(long id, User owner);
 
-    void save(CardBox cardBox);
+    CardBox save(CardBox cardBox);
 
 }

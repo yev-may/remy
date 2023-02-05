@@ -3,6 +3,7 @@ package com.yevay.remy.core.facade;
 import com.yevay.remy.model.dto.CardBoxDto;
 import com.yevay.remy.model.dto.CardBoxFacetDto;
 import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
+import com.yevay.remy.model.dto.card.box.request.UpdateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.response.CardBoxFacetPageableResponse;
 import com.yevay.remy.model.dto.form.CardBoxCreationForm;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,8 @@ public interface CardBoxFacade {
     CardBoxFacetPageableResponse getPageable(Pageable pageable);
 
     void create(CreateCardBoxRequest request);
+
+    CardBoxFacetDto update(UpdateCardBoxRequest request);
 
     List<CardBoxFacetDto> getAllForCurrentUser();
 

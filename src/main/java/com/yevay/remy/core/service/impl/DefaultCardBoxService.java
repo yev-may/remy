@@ -36,7 +36,7 @@ public class DefaultCardBoxService implements CardBoxService {
     }
 
     @Override
-    public void save(CardBox cardBox) {
-        cardBoxRepository.save(cardBox);
+    public CardBox save(CardBox cardBox) {
+        return cardBoxRepository.save(cardBox);
     }
 }

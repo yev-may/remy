@@ -29,7 +29,7 @@ public class CardBoxConverter {
         return new PageImpl<>(cardBoxFacets, cardBoxPage.getPageable(), cardBoxPage.getTotalElements());
     }
 
-    private CardBoxFacetDto toFacet(CardBox cardBox) {
+    public CardBoxFacetDto toFacet(CardBox cardBox) {
         return CardBoxFacetDto.builder()
                 .id(cardBox.getId())
                 .title(cardBox.getTitle())

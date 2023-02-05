@@ -1,8 +1,10 @@
 package com.yevay.remy.view.api.controller;
 
 import com.yevay.remy.core.facade.CardBoxFacade;
+import com.yevay.remy.model.dto.CardBoxFacetDto;
 import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.GetCardBoxPageableRequest;
+import com.yevay.remy.model.dto.card.box.request.UpdateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.response.CardBoxFacetPageableResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,5 +34,11 @@ public class CardBoxController {
     public ResponseEntity<?> createCardBox(@Valid @RequestBody CreateCardBoxRequest request) {
         cardBoxFacade.create(request);
         return ResponseEntity.ok("Card box created!");
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCardBox(@Valid @RequestBody UpdateCardBoxRequest request) {
+        CardBoxFacetDto updatedCardBox = cardBoxFacade.update(request);
+        return ResponseEntity.ok(updatedCardBox);
     }
 }
