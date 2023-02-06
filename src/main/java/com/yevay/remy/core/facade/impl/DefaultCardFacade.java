@@ -4,10 +4,13 @@ import com.yevay.remy.core.facade.CardFacade;
 import com.yevay.remy.core.service.CardBoxService;
 import com.yevay.remy.core.service.CardService;
 import com.yevay.remy.core.service.SessionService;
+import com.yevay.remy.model.converter.CardConverter;
 import com.yevay.remy.model.domain.Card;
 import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.CardFacetDto;
+import com.yevay.remy.model.dto.card.request.GetCardListRequest;
+import com.yevay.remy.model.dto.card.response.CardListResponse;
 import com.yevay.remy.model.dto.form.CardCreationForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,11 +29,20 @@ public class DefaultCardFacade implements CardFacade {
     private final CardService cardService;
     private final CardBoxService cardBoxService;
     private final SessionService sessionService;
+    private final CardConverter cardConverter;
 
-    public DefaultCardFacade(CardService cardService, CardBoxService cardBoxService, SessionService sessionService) {
+    public DefaultCardFacade(CardService cardService, CardBoxService cardBoxService,
+                             SessionService sessionService, CardConverter cardConverter) {
         this.cardService = cardService;
         this.cardBoxService = cardBoxService;
         this.sessionService = sessionService;
+        this.cardConverter = cardConverter;
+    }
+
+    @Override
+    public CardListResponse getList(GetCardListRequest request) {
+        List<Card> cards = cardService.getByBoxIdAndLevel(request.getBoxId(), request.getLevel());
+        return cardConverter.toCardListResponse(cards);
     }
 
     @Override

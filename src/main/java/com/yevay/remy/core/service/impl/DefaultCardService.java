@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DefaultCardService implements CardService {
 
@@ -15,6 +17,11 @@ public class DefaultCardService implements CardService {
 
     public DefaultCardService(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
+    }
+
+    @Override
+    public List<Card> getByBoxIdAndLevel(long boxId, int level) {
+        return cardRepository.findByBoxIdAndRepeatLevel(boxId, level);
     }
 
     @Override
