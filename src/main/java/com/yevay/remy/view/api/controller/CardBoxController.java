@@ -24,7 +24,7 @@ public class CardBoxController {
         this.cardBoxFacade = cardBoxFacade;
     }
 
-    @GetMapping("/pageable")
+    @PostMapping("/pageable")
     public ResponseEntity<?> getPageable(@RequestBody GetCardBoxPageableRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
         CardBoxFacetPageableResponse response = cardBoxFacade.getPageable(pageable);
