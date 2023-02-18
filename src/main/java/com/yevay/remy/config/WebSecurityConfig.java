@@ -30,6 +30,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors()
+                    .and()
                 .authorizeRequests()
                     .antMatchers("/token/new").permitAll()
                     .antMatchers("/user/register").permitAll()
