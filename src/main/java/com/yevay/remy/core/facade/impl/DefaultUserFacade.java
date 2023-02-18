@@ -22,9 +22,10 @@ public class DefaultUserFacade implements UserFacade {
     }
 
     @Override
-    public void register(UserRegistrationForm userRegistrationForm) {
+    public UserDto register(UserRegistrationForm userRegistrationForm) {
         User user = userConvertor.fromForm(userRegistrationForm);
-        userService.save(user);
+        User savedUser = userService.save(user);
+        return userConvertor.toDto(savedUser);
     }
 
     @Override

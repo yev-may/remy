@@ -19,9 +19,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody UserRegistrationForm form) {
-        userFacade.register(form);
-        return ResponseEntity.ok("Success!");
+    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserRegistrationForm form) {
+        UserDto user = userFacade.register(form);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/info")
