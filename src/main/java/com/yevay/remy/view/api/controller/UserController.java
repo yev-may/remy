@@ -1,8 +1,9 @@
 package com.yevay.remy.view.api.controller;
 
-import com.yevay.remy.core.facade.UserFacade;
-import com.yevay.remy.model.dto.UserDto;
-import com.yevay.remy.model.dto.form.UserRegistrationForm;
+import com.yevay.remy.model.dto.user.UserRegistrationRequest;
+import com.yevay.remy.model.dto.user.UserRegistrationResponse;
+import com.yevay.remy.view.proc.UserProcessor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,23 +11,14 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
+@AllArgsConstructor
 public class UserController {
 
-    private final UserFacade userFacade;
-
-    public UserController(UserFacade userFacade) {
-        this.userFacade = userFacade;
-    }
+    private final UserProcessor userProcessor;
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserRegistrationForm form) {
-        UserDto user = userFacade.register(form);
-        return ResponseEntity.ok(user);
-    }
-
-    @GetMapping("/info")
-    public ResponseEntity<UserDto> getUserInfo() {
-        UserDto user = userFacade.getCurrentUserInfo();
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserRegistrationResponse> registerUser(@Valid @RequestBody UserRegistrationRequest request) {
+        UserRegistrationResponse response = userProcessor.process(request);
+        return ResponseEntity.ok(response);
     }
 }

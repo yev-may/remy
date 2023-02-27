@@ -1,7 +1,8 @@
 package com.yevay.remy.view.jsp.controller;
 
-import com.yevay.remy.core.facade.UserFacade;
-import com.yevay.remy.model.dto.form.UserRegistrationForm;
+import com.yevay.remy.model.dto.user.UserRegistrationRequest;
+import com.yevay.remy.view.proc.UserProcessor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,13 +15,10 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/page")
+@AllArgsConstructor
 public class UserPageController {
 
-    private final UserFacade userFacade;
-
-    public UserPageController(UserFacade userFacade) {
-        this.userFacade = userFacade;
-    }
+    private final UserProcessor userProcessor;
 
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(required = false) boolean error, Model model) {
@@ -30,17 +28,17 @@ public class UserPageController {
 
     @GetMapping("/registration")
     public String getRegistrationPage(Model model) {
-        model.addAttribute("userRegistrationForm", new UserRegistrationForm());
+        model.addAttribute("userRegistrationForm", new UserRegistrationRequest());
         return "page/registration";
     }
 
     @PostMapping("/registration")
-    public String registerAccount(@Valid UserRegistrationForm userRegistrationForm, BindingResult result, Model model) {
+    public String registerAccount(@Valid UserRegistrationRequest userRegistrationForm, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("userRegistrationForm", userRegistrationForm);
             return "page/registration";
         }
-        userFacade.register(userRegistrationForm);
+        userProcessor.process(userRegistrationForm);
         return "redirect:/login";
     }
 }
