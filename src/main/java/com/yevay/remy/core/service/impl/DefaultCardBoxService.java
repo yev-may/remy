@@ -1,10 +1,9 @@
 package com.yevay.remy.core.service.impl;
 
 import com.yevay.remy.core.service.CardBoxService;
-import com.yevay.remy.model.domain.Card;
 import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
-import com.yevay.remy.model.repo.CardBoxRepository;
+import com.yevay.remy.core.repo.CardBoxRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

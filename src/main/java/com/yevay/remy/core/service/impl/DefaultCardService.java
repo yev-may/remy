@@ -3,7 +3,7 @@ package com.yevay.remy.core.service.impl;
 import com.yevay.remy.core.service.CardService;
 import com.yevay.remy.model.domain.Card;
 import com.yevay.remy.model.domain.CardBox;
-import com.yevay.remy.model.repo.CardRepository;
+import com.yevay.remy.core.repo.CardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

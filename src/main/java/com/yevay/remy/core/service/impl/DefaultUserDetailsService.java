@@ -1,6 +1,6 @@
 package com.yevay.remy.core.service.impl;
 
-import com.yevay.remy.model.repo.UserRepository;
+import com.yevay.remy.core.repo.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

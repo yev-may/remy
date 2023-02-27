@@ -1,4 +1,4 @@
-package com.yevay.remy.model.repo;
+package com.yevay.remy.core.repo;
 
 import com.yevay.remy.model.domain.Card;
 import com.yevay.remy.model.domain.CardBox;
