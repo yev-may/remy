@@ -1,13 +1,11 @@
 package com.yevay.remy.model.dto.user;
 
-import com.yevay.remy.model.dto.form.validator.PasswordMatches;
-import com.yevay.remy.model.dto.form.validator.ValidEmail;
+import com.yevay.remy.model.dto.validator.ValidEmail;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
 
 @Data
-@PasswordMatches
 public class UserRegistrationRequest {
     @ValidEmail
     private String email;
@@ -15,5 +13,4 @@ public class UserRegistrationRequest {
     private String login;
     @Size(min = 8, message = "Must contain at least 8 characters")
     private String password;
-    private String repeatPassword;
 }

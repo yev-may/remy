@@ -1,6 +1,6 @@
-package com.yevay.remy.model.dto.form.validator;
+package com.yevay.remy.model.dto.validator;
 
-import com.yevay.remy.model.dto.form.validator.impl.EmailValidator;
+import com.yevay.remy.model.dto.validator.impl.EmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

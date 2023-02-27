@@ -1,6 +1,6 @@
-package com.yevay.remy.model.dto.form.validator.impl;
+package com.yevay.remy.model.dto.validator.impl;
 
-import com.yevay.remy.model.dto.form.validator.ValidEmail;
+import com.yevay.remy.model.dto.validator.ValidEmail;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.validation.ConstraintValidator;
