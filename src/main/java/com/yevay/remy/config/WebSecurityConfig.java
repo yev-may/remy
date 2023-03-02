@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                 .cors()
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/token/new").permitAll()
+                    .antMatchers("/token/get").permitAll()
                     .antMatchers("/user/register").permitAll()
                     .anyRequest().authenticated()
                     .and()
