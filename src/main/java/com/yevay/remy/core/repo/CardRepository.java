@@ -1,7 +1,7 @@
 package com.yevay.remy.core.repo;
 
 import com.yevay.remy.model.domain.Card;
-import com.yevay.remy.model.domain.CardBox;
+import com.yevay.remy.model.domain.Box;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +14,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 
     List<Card> findByBoxIdAndRepeatLevel(long boxId, int level);
 
-    Page<Card> findByBox(CardBox box, Pageable pageable);
+    Page<Card> findByBox(Box box, Pageable pageable);
 
 }

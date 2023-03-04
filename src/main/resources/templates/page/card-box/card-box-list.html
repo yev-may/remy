@@ -23,22 +23,22 @@
                 <h2>Card boxes</h2>
             </div>
 
-            <!--/*@thymesVar id="cardBoxes" type="java.util.List<com.yevay.remy.model.dto.CardBoxFacetDto>"*/-->
-            <div class="theme-card-box mb-4 th:each="cardBox : ${cardBoxes}">
+            <!--/*@thymesVar id="cardBoxes" type="java.util.List<com.yevay.remy.model.dto.BoxFacetDto>"*/-->
+            <div class="theme-card-box mb-4" th:each="box : ${cardBoxes}">
                 <div class="text-center">
-                    <h5 th:text="${cardBox.title}">Card box title</h5>
+                    <h5 th:text="${box.title}">Card box title</h5>
                 </div>
                 <div>
                     <div>
                         <a class="btn w-100 btn-theme" th:href="@{/}" >Repeat</a>
-                        <p th:text="${'Last repeat: ' + cardBox.lastRepeat}">Last repeat: 1</p>
+                        <p th:text="${'Last repeat: ' + box.lastRepeat}">Last repeat: 1</p>
                     </div>
                     <div>
                         <a class="btn w-100 btn-theme" th:href="@{/}" >Repeat</a>
-                        <p th:text="${'Card added today: ' + cardBox.cardsAddedToday}">Card added today: 5/10</p>
+                        <p th:text="${'Card added today: ' + box.cardsAddedToday}">Card added today: 5/10</p>
                     </div>
                     <div>
-                        <a th:href="@{/card-box/{id}(id=${cardBox.id})}" class="btn w-100 btn-theme">Details</a>
+                        <a th:href="@{/card-box/{id}(id=${box.id})}" class="btn w-100 btn-theme">Details</a>
                     </div>
                 </div>
             </div>

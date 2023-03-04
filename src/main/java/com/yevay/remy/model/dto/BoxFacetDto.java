@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardBoxFacetDto {
+public class BoxFacetDto {
     private long id;
     private String title;
     private String lastRepeat;

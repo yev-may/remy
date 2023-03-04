@@ -1,7 +1,7 @@
 package com.yevay.remy.core.service.impl;
 
 import com.yevay.remy.core.service.CardBoxService;
-import com.yevay.remy.model.domain.CardBox;
+import com.yevay.remy.model.domain.Box;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.core.repo.CardBoxRepository;
 import org.springframework.data.domain.Page;
@@ -20,23 +20,23 @@ public class DefaultCardBoxService implements CardBoxService {
     }
 
     @Override
-    public Page<CardBox> getByOwner(Pageable pageable, User owner) {
+    public Page<Box> getByOwner(Pageable pageable, User owner) {
         return cardBoxRepository.findByOwner(pageable, owner);
     }
 
     @Override
-    public List<CardBox> getAllByOwner(User owner) {
+    public List<Box> getAllByOwner(User owner) {
         return cardBoxRepository.findAllByOwner(owner);
     }
 
     @Override
-    public CardBox getByIdAndOwner(long id, User owner) {
+    public Box getByIdAndOwner(long id, User owner) {
         return cardBoxRepository.findByIdAndOwner(id, owner);
     }
 
     @Override
-    public CardBox save(CardBox cardBox) {
-        return cardBoxRepository.save(cardBox);
+    public Box save(Box box) {
+        return cardBoxRepository.save(box);
     }
 
     @Override

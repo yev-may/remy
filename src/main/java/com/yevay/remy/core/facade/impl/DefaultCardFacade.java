@@ -5,8 +5,8 @@ import com.yevay.remy.core.service.CardBoxService;
 import com.yevay.remy.core.service.CardService;
 import com.yevay.remy.core.service.SessionService;
 import com.yevay.remy.model.converter.CardConverter;
+import com.yevay.remy.model.domain.Box;
 import com.yevay.remy.model.domain.Card;
-import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.CardFacetDto;
 import com.yevay.remy.model.dto.card.request.GetCardListRequest;
@@ -51,8 +51,8 @@ public class DefaultCardFacade implements CardFacade {
     }
 
     private Page<CardFacetDto> getFacetsByBoxAndOwner(long boxId, User owner, Pageable pageable) {
-        CardBox cardBox = cardBoxService.getByIdAndOwner(boxId, owner);
-        Page<Card> cardPage = cardService.getByBox(cardBox, pageable);
+        Box box = cardBoxService.getByIdAndOwner(boxId, owner);
+        Page<Card> cardPage = cardService.getByBox(box, pageable);
         List<CardFacetDto> cardFacets = toFacetDto(cardPage.get());
         return new PageImpl<>(cardFacets, pageable, cardPage.getTotalElements());
     }
@@ -77,7 +77,7 @@ public class DefaultCardFacade implements CardFacade {
     @Override
     public void create(CardCreationForm form) {
         Card card = Card.builder()
-                .box(CardBox.builder()
+                .box(Box.builder()
                         .id(form.getBoxId()).build())
                 .question(form.getQuestion())
                 .answer(form.getAnswer()).build();

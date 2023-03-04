@@ -1,13 +1,13 @@
 package com.yevay.remy.core.facade.impl;
 
-import com.yevay.remy.core.facade.CardBoxFacade;
+import com.yevay.remy.core.facade.BoxFacade;
 import com.yevay.remy.core.service.CardBoxService;
 import com.yevay.remy.core.service.SessionService;
 import com.yevay.remy.model.converter.CardBoxConverter;
-import com.yevay.remy.model.domain.CardBox;
+import com.yevay.remy.model.domain.Box;
 import com.yevay.remy.model.domain.User;
 import com.yevay.remy.model.dto.CardBoxDto;
-import com.yevay.remy.model.dto.CardBoxFacetDto;
+import com.yevay.remy.model.dto.BoxFacetDto;
 import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.DeleteCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.UpdateCardBoxRequest;
@@ -22,13 +22,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class DefaultCardBoxFacade implements CardBoxFacade {
+public class DefaultBoxFacade implements BoxFacade {
 
     private final CardBoxService cardBoxService;
     private final SessionService sessionService;
     private final CardBoxConverter cardBoxConverter;
 
-    public DefaultCardBoxFacade(CardBoxService cardBoxService, SessionService sessionService, CardBoxConverter cardBoxConverter) {
+    public DefaultBoxFacade(CardBoxService cardBoxService, SessionService sessionService, CardBoxConverter cardBoxConverter) {
         this.cardBoxService = cardBoxService;
         this.sessionService = sessionService;
         this.cardBoxConverter = cardBoxConverter;
@@ -36,26 +36,26 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
 
     @Override
     public CardBoxFacetPageableResponse getPageable(Pageable pageable) {
-        Page<CardBox> cardBoxPage = cardBoxService.getByOwner(pageable, sessionService.getCurrentUser());
+        Page<Box> cardBoxPage = cardBoxService.getByOwner(pageable, sessionService.getCurrentUser());
         return cardBoxConverter.toPageableFacetResponse(cardBoxPage);
     }
 
     @Override
     public void create(CreateCardBoxRequest request) {
-        CardBox cardBox = CardBox.builder()
+        Box box = Box.builder()
                 .title(request.getTitle())
                 .owner(sessionService.getCurrentUser()).build();
-        cardBoxService.save(cardBox);
+        cardBoxService.save(box);
     }
 
     @Override
-    public CardBoxFacetDto update(UpdateCardBoxRequest request) {
-        CardBox cardBox = CardBox.builder()
+    public BoxFacetDto update(UpdateCardBoxRequest request) {
+        Box box = Box.builder()
                 .id(request.getId())
                 .title(request.getBody().getTitle())
                 .owner(sessionService.getCurrentUser()).build();
-        CardBox updatedCardBox = cardBoxService.save(cardBox);
-        return cardBoxConverter.toFacet(updatedCardBox);
+        Box updatedBox = cardBoxService.save(box);
+        return cardBoxConverter.toFacet(updatedBox);
     }
 
     @Override
@@ -64,20 +64,20 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
     }
 
     @Override
-    public List<CardBoxFacetDto> getAllForCurrentUser() {
+    public List<BoxFacetDto> getAllForCurrentUser() {
         return getAllByOwner(sessionService.getCurrentUser());
     }
 
-    private List<CardBoxFacetDto> getAllByOwner(User user) {
+    private List<BoxFacetDto> getAllByOwner(User user) {
         return cardBoxService.getAllByOwner(user).stream()
                 .map(this::toFacetDto)
                 .collect(Collectors.toList());
     }
 
-    private CardBoxFacetDto toFacetDto(CardBox cardBox) {
-        return CardBoxFacetDto.builder()
-                .id(cardBox.getId())
-                .title(cardBox.getTitle())
+    private BoxFacetDto toFacetDto(Box box) {
+        return BoxFacetDto.builder()
+                .id(box.getId())
+                .title(box.getTitle())
                 .lastRepeat("1 day age")
                 .cardsAddedToday(1).build();
     }
@@ -93,17 +93,17 @@ public class DefaultCardBoxFacade implements CardBoxFacade {
                 .orElseThrow(() -> new IllegalArgumentException("Card box with id [" + id + "] for and owner [" + owner.getLogin() +"] not found"));
     }
 
-    private CardBoxDto toDto(CardBox cardBox) {
+    private CardBoxDto toDto(Box box) {
         return CardBoxDto.builder()
-                .id(cardBox.getId())
-                .title(cardBox.getTitle()).build();
+                .id(box.getId())
+                .title(box.getTitle()).build();
     }
 
     @Override
     public void create(CardBoxCreationForm form) {
-        CardBox cardBox = CardBox.builder()
+        Box box = Box.builder()
                 .title(form.getTitle())
                 .owner(sessionService.getCurrentUser()).build();
-        cardBoxService.save(cardBox);
+        cardBoxService.save(box);
     }
 }

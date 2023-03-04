@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardBox {
+public class Box {
     @Id
     @GeneratedValue
     private Long id;

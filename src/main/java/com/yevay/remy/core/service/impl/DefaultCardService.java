@@ -1,8 +1,8 @@
 package com.yevay.remy.core.service.impl;
 
 import com.yevay.remy.core.service.CardService;
+import com.yevay.remy.model.domain.Box;
 import com.yevay.remy.model.domain.Card;
-import com.yevay.remy.model.domain.CardBox;
 import com.yevay.remy.core.repo.CardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +25,7 @@ public class DefaultCardService implements CardService {
     }
 
     @Override
-    public Page<Card> getByBox(CardBox box, Pageable pageable) {
+    public Page<Card> getByBox(Box box, Pageable pageable) {
         return cardRepository.findByBox(box, pageable);
     }
 

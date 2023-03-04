@@ -1,7 +1,7 @@
 package com.yevay.remy.view.api.controller;
 
-import com.yevay.remy.core.facade.CardBoxFacade;
-import com.yevay.remy.model.dto.CardBoxFacetDto;
+import com.yevay.remy.core.facade.BoxFacade;
+import com.yevay.remy.model.dto.BoxFacetDto;
 import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.DeleteCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.GetCardBoxPageableRequest;
@@ -15,37 +15,37 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/card-box")
-public class CardBoxController {
+@RequestMapping("/box")
+public class BoxController {
 
-    private final CardBoxFacade cardBoxFacade;
+    private final BoxFacade boxFacade;
 
-    public CardBoxController(CardBoxFacade cardBoxFacade) {
-        this.cardBoxFacade = cardBoxFacade;
+    public BoxController(BoxFacade boxFacade) {
+        this.boxFacade = boxFacade;
     }
 
     @PostMapping("/pageable")
     public ResponseEntity<?> getPageable(@RequestBody GetCardBoxPageableRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
-        CardBoxFacetPageableResponse response = cardBoxFacade.getPageable(pageable);
+        CardBoxFacetPageableResponse response = boxFacade.getPageable(pageable);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> createCardBox(@Valid @RequestBody CreateCardBoxRequest request) {
-        cardBoxFacade.create(request);
+        boxFacade.create(request);
         return ResponseEntity.ok("Card box created!");
     }
 
     @PostMapping("/update")
     public ResponseEntity<?> updateCardBox(@Valid @RequestBody UpdateCardBoxRequest request) {
-        CardBoxFacetDto updatedCardBox = cardBoxFacade.update(request);
+        BoxFacetDto updatedCardBox = boxFacade.update(request);
         return ResponseEntity.ok(updatedCardBox);
     }
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteCardBox(@RequestBody DeleteCardBoxRequest request) {
-        cardBoxFacade.delete(request);
+        boxFacade.delete(request);
         return ResponseEntity.ok("Card box deleted");
     }
 }

@@ -23,5 +23,5 @@ public class Card {
     private Integer repeatLevel;
     private LocalDate lastRepeatDate;
     @ManyToOne
-    private CardBox box;
+    private Box box;
 }

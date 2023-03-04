@@ -1,6 +1,6 @@
 package com.yevay.remy.model.dto.card.box.response;
 
-import com.yevay.remy.model.dto.CardBoxFacetDto;
+import com.yevay.remy.model.dto.BoxFacetDto;
 import lombok.*;
 
 import java.util.List;
@@ -18,6 +18,6 @@ public class CardBoxFacetPageableResponse {
 
     private int currentPage;
 
-    private List<CardBoxFacetDto> facets;
+    private List<BoxFacetDto> facets;
 
 }
