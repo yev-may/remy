@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +23,7 @@ public class DefaultCardProcessor implements BoxProcessor {
 
     @Override
     public GetBoxPageResponse process(GetBoxPageRequest request) {
-        Pageable pageable = PageRequest.of(request.getNumber(), request.getSize());
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize(), Sort.by("title"));
         Page<Box> boxPage = cardBoxService.getByOwner(pageable, sessionService.getCurrentUser());
         return boxConverter.toBoxPageResponse(boxPage);
     }

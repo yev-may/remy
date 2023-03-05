@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class GetBoxPageRequest {
-    private int number;
+    private int page;
     private int size;
 }
