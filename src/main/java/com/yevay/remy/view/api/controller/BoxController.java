@@ -2,32 +2,32 @@ package com.yevay.remy.view.api.controller;
 
 import com.yevay.remy.core.facade.BoxFacade;
 import com.yevay.remy.model.dto.BoxFacetDto;
+import com.yevay.remy.model.dto.box.GetBoxPageRequest;
+import com.yevay.remy.model.dto.box.GetBoxPageResponse;
 import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.DeleteCardBoxRequest;
-import com.yevay.remy.model.dto.card.box.request.GetCardBoxPageableRequest;
 import com.yevay.remy.model.dto.card.box.request.UpdateCardBoxRequest;
-import com.yevay.remy.model.dto.card.box.response.CardBoxFacetPageableResponse;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.yevay.remy.view.proc.BoxProcessor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/box")
+@AllArgsConstructor
 public class BoxController {
 
     private final BoxFacade boxFacade;
-
-    public BoxController(BoxFacade boxFacade) {
-        this.boxFacade = boxFacade;
-    }
+    private final BoxProcessor boxProcessor;
 
     @PostMapping("/pageable")
-    public ResponseEntity<?> getPageable(@RequestBody GetCardBoxPageableRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
-        CardBoxFacetPageableResponse response = boxFacade.getPageable(pageable);
+    public ResponseEntity<?> getPageable(@RequestBody GetBoxPageRequest request) {
+        GetBoxPageResponse response = boxProcessor.process(request);
         return ResponseEntity.ok(response);
     }
 

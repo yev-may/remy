@@ -5,12 +5,21 @@ import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.view.proc.BoxProcessor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class MockCardProcessor implements BoxProcessor {
 
     @Override
     public GetBoxPageResponse process(GetBoxPageRequest request) {
-        return null;
+        return GetBoxPageResponse.builder()
+                .facets(List.of(
+                        BoxFacet.builder().id(1).title("Test 1").build(),
+                        BoxFacet.builder().id(2).title("Test 2").build(),
+                        BoxFacet.builder().id(3).title("Test 3").build()))
+                .totalElements(4)
+                .totalPages(2)
+                .build();
     }
 
     @Override
