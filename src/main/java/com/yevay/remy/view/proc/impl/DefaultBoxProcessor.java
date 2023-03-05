@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class DefaultCardProcessor implements BoxProcessor {
+public class DefaultBoxProcessor implements BoxProcessor {
 
     private final SessionService sessionService;
     private final CardBoxService cardBoxService;
