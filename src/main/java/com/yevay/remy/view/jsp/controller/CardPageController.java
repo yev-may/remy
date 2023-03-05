@@ -1,9 +1,6 @@
 package com.yevay.remy.view.jsp.controller;
 
-import com.yevay.remy.core.facade.CardFacade;
 import com.yevay.remy.model.dto.form.CardCreationForm;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,18 +12,9 @@ import javax.validation.Valid;
 @RequestMapping("/page/card-box/{boxId}/card")
 public class CardPageController {
 
-    private final CardFacade cardFacade;
-
-    public CardPageController(CardFacade cardFacade) {
-        this.cardFacade = cardFacade;
-    }
-
     @GetMapping("/all")
-    public String getCardsPage(@PathVariable long boxId, @RequestParam(defaultValue = "0") int pageNumber,
-                               @RequestParam(defaultValue = "5") int pageSize, Model model) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    public String getCardsPage(@PathVariable long boxId, Model model) {
         model.addAttribute("boxId", boxId);
-        model.addAttribute("cardPage", cardFacade.getFacetsByBoxForCurrentUser(boxId, pageable));
         return "page/card-list";
     }
 
@@ -43,7 +31,6 @@ public class CardPageController {
             return "page/card-create";
         }
         cardCreationForm.setBoxId(boxId);
-        cardFacade.create(cardCreationForm);
         return "redirect:/card-box/" + boxId;
     }
 }
