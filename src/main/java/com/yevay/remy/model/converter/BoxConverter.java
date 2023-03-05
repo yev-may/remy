@@ -2,6 +2,7 @@ package com.yevay.remy.model.converter;
 
 import com.yevay.remy.model.domain.Box;
 import com.yevay.remy.model.dto.box.BoxFacet;
+import com.yevay.remy.model.dto.box.CreateBoxResponse;
 import com.yevay.remy.model.dto.box.GetBoxPageResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,12 @@ public class BoxConverter {
                 .totalElements(boxPage.getTotalElements())
                 .totalPages(boxPage.getTotalPages())
                 .currentPage(boxPage.getNumber())
+                .build();
+    }
+
+    public CreateBoxResponse toCreateBoxResponse(Box box) {
+        return CreateBoxResponse.builder()
+                .createdBox(toFacet(box))
                 .build();
     }
 

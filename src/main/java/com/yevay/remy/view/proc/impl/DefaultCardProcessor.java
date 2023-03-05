@@ -5,7 +5,6 @@ import com.yevay.remy.core.service.SessionService;
 import com.yevay.remy.model.converter.BoxConverter;
 import com.yevay.remy.model.domain.Box;
 import com.yevay.remy.model.dto.box.*;
-import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.view.proc.BoxProcessor;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,8 +28,17 @@ public class DefaultCardProcessor implements BoxProcessor {
     }
 
     @Override
-    public CreateBoxResponse process(CreateCardBoxRequest request) {
-        return null;
+    public CreateBoxResponse process(CreateBoxRequest request) {
+        Box box = createBoxToSave(request);
+        Box savedBox = cardBoxService.save(box);
+        return boxConverter.toCreateBoxResponse(savedBox);
+    }
+
+    private Box createBoxToSave(CreateBoxRequest request) {
+        return Box.builder()
+                .title(request.getTitle())
+                .owner(sessionService.getCurrentUser())
+                .build();
     }
 
     @Override

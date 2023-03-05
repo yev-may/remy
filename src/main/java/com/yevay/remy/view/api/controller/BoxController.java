@@ -2,9 +2,10 @@ package com.yevay.remy.view.api.controller;
 
 import com.yevay.remy.core.facade.BoxFacade;
 import com.yevay.remy.model.dto.BoxFacetDto;
+import com.yevay.remy.model.dto.box.CreateBoxRequest;
+import com.yevay.remy.model.dto.box.CreateBoxResponse;
 import com.yevay.remy.model.dto.box.GetBoxPageRequest;
 import com.yevay.remy.model.dto.box.GetBoxPageResponse;
-import com.yevay.remy.model.dto.card.box.request.CreateCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.DeleteCardBoxRequest;
 import com.yevay.remy.model.dto.card.box.request.UpdateCardBoxRequest;
 import com.yevay.remy.view.proc.BoxProcessor;
@@ -32,9 +33,9 @@ public class BoxController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createCardBox(@Valid @RequestBody CreateCardBoxRequest request) {
-        boxFacade.create(request);
-        return ResponseEntity.ok("Card box created!");
+    public ResponseEntity<?> createCardBox(@Valid @RequestBody CreateBoxRequest request) {
+        CreateBoxResponse response = boxProcessor.process(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/update")
