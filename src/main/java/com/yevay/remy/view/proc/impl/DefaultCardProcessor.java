@@ -20,14 +20,19 @@ public class DefaultCardProcessor implements CardProcessor {
     @Override
     public CreateCardResponse process(CreateCardRequest request) {
         Card card = createCardToSave(request);
-        cardService.save(card);
-        return new CreateCardResponse();
+        Card savedCard = cardService.save(card);
+        return CreateCardResponse.builder()
+                .boxId(savedCard.getBox().getId().toString())
+                .cardId(savedCard.getId().toString())
+                .question(savedCard.getQuestion())
+                .answer(savedCard.getAnswer())
+                .build();
     }
 
     private Card createCardToSave(CreateCardRequest request) {
         return Card.builder()
                 .box(Box.builder()
-                        .id(request.getBoxId())
+                        .id(Long.parseLong(request.getBoxId()))
                         .owner(sessionService.getCurrentUser())
                         .build())
                 .question(request.getQuestion())

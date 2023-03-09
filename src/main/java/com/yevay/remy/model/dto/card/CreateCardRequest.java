@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CreateCardRequest {
-    private long boxId;
+    private String boxId;
     private String question;
     private String answer;
 }
