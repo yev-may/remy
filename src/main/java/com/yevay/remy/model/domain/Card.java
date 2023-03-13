@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -20,8 +19,9 @@ public class Card {
     private Long id;
     private String question;
     private String answer;
-    private Integer repeatLevel;
-    private LocalDate lastRepeatDate;
+
+    private int repetitionLevel;
+
     @ManyToOne
     private Box box;
 }

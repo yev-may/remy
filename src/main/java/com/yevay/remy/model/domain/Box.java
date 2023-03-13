@@ -17,7 +17,13 @@ public class Box {
     @GeneratedValue
     private Long id;
     private String title;
-    private LocalDate lastRepeatDate;
+
+    private int regressionLevel;
+    private int maxRepetitionLevel;
+
+    private int lastRepeatedLevel;
+    private LocalDate lastRepetitionDate;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "box_id")
     private List<Card> cards;
