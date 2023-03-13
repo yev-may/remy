@@ -17,6 +17,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class DefaultBoxProcessor implements BoxProcessor {
 
+    private final static int DEFAULT_MAX_REPETITION_LEVEL = 4;
+    private final static int DEFAULT_REGRESSION_LEVEL = -1;
+    private final static int NEVER_REPEATED_BOX_REPETITION_LEVEL = -1;
+
     private final SessionService sessionService;
     private final CardBoxService cardBoxService;
     private final BoxConverter boxConverter;
@@ -39,6 +43,9 @@ public class DefaultBoxProcessor implements BoxProcessor {
         return Box.builder()
                 .title(request.getTitle())
                 .owner(sessionService.getCurrentUser())
+                .maxRepetitionLevel(DEFAULT_MAX_REPETITION_LEVEL)
+                .regressionLevel(DEFAULT_REGRESSION_LEVEL)
+                .lastRepeatedLevel(NEVER_REPEATED_BOX_REPETITION_LEVEL)
                 .build();
     }
 
